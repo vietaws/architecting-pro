@@ -28,6 +28,29 @@ eksctl create cluster \
 | Private (2) | a, b | `kubernetes.io/role/internal-elb=1` — internal ALB |
 
 ---
+## Enable IAM OIDC for EKS Cluster
+
+Purpose: Enable IAM Role for Service Account on EKS cluster
+
+```bash
+# Syntax
+eksctl utils associate-iam-oidc-provider \
+    --region <region-code> \
+    --cluster <cluter-name> \
+    --approve
+
+# Replace with region & cluster name & profile (optional)
+eksctl utils associate-iam-oidc-provider \
+    --region ap-southeast-1 \
+    --cluster demo-cluster \
+    --approve
+
+# check oidc on IAM - Identity provider or
+aws eks describe-cluster --name demo-cluster --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5
+
+```
+
+---
 
 ## Node group
 
